@@ -16,6 +16,8 @@ function showMoreInfo() {
 // retrieve similar image from the API and display
 function getSimilarImage(artworkID) {
   $('.button-thumbs-up').click(event => {
+    
+    console.log('getSimilarImage ran');
     const auth = {
       headers: new Headers({
         "X-XAPP-Token": xappToken})
@@ -43,6 +45,7 @@ function getSimilarImage(artworkID) {
   });
 }
 
+   
 // display retrieved image and title
 function displaySimilarImage(responseJson) {
   console.log(responseJson);
@@ -58,6 +61,14 @@ function displaySimilarImage(responseJson) {
   $('.art-title').html(
     `"${responseJson._embedded.artworks[0].title}"`);
 
+  $('.art-date').html(
+      `"${responseJson._embedded.artworks[0].date}"`);
+  $('.art-medium').html(
+    `"${responseJson._embedded.artworks[0].medium}"`);
+  $('.art-institution').html(
+    `"${responseJson._embedded.artworks[0].collecting_institution}"`);
+  $('.artsy-link').attr("href", `${responseJson._embedded.artworks[0]._links.permalink.href}`);
+
   const artworkID = responseJson._embedded.artworks[0].id;
   console.log(artworkID);
   getArtist(artworkID);
@@ -71,36 +82,6 @@ function getDifferentImage() {
   $('.button-thumbs-down').click(event => {
     getRandomImage();
   });
-}
-
-// display retrieved image and info
-function displayImage(responseJson) {
-  console.log(responseJson);
-  let image = responseJson._links.image.href.split("{", 1);
-  let large = responseJson.image_versions[0];
-  let largeImage = image + large + ".jpg";
-  
-  $('#js-image-frame').html(
-    `<img src="${largeImage}" 
-    alt="${responseJson.slug}">`);
-
-  $('.art-title').html(
-    `"${responseJson.title}"`);
-  $('.art-date').html(
-      `"${responseJson.date}"`);
-  $('.art-category').html(
-    `"${responseJson.category}"`);
-  $('.art-medium').html(
-    `"${responseJson.medium}"`);
-  $('.art-institution').html(
-    `"${responseJson.collecting_institution}"`);
-  $('.artsy-link').attr("href", `"${responseJson._links.permalink}"`);
-    
-  const artworkID = responseJson.id;
-  console.log(artworkID);
-  getArtist(artworkID);
-  getSimilarImage(artworkID);
-  getDifferentImage();
 }
 
 // get and display artist name
@@ -135,7 +116,35 @@ function displayArtist(responseJson) {
     `"${responseJson._embedded.artists[0].name}"`);
 }
 
+// display retrieved image and info
+function displayImage(responseJson) {
+  console.log(responseJson);
+  let image = responseJson._links.image.href.split("{", 1);
+  let large = responseJson.image_versions[0];
+  let largeImage = image + large + ".jpg";
+  
+  $('#js-image-frame').html(
+    `<img src="${largeImage}" 
+    alt="${responseJson.slug}">`);
 
+  $('.art-title').html(
+    `"${responseJson.title}"`);
+  $('.art-date').html(
+      `"${responseJson.date}"`);
+  $('.art-medium').html(
+    `"${responseJson.medium}"`);
+  $('.art-institution').html(
+    `"${responseJson.collecting_institution}"`);
+  $('.artsy-link').attr("href", `${responseJson._links.permalink.href}`);
+      
+  const artworkID = responseJson.id;
+  console.log(artworkID);
+
+  getArtist(artworkID);
+  getSimilarImage(artworkID);
+  getDifferentImage();
+}
+ 
 // format parameter values for query string
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -171,72 +180,6 @@ function getRandomImage() {
     });
 }
 
-/*function getMonaLisa() {
-  const auth = {
-    headers: new Headers({
-      "X-XAPP-Token": xappToken})
-  };
-  
-  const monaLisa = "4d8b937c4eb68a1b2c001722";
-
-  const url = searchURL + 'artworks/' + monaLisa;
-
-  fetch(url, auth)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.statusText);
-    })
-    .then(responseJson => displayImage(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-}*/
-
-/*function getRandomImage() {
-  const auth = {
-    headers: new Headers({
-      "X-XAPP-Token": xappToken})
-  };
-  const iconID = [
-    "4d8b937c4eb68a1b2c001722",
-    "4d8b93b04eb68a1b2c001b9d",
-    "4d8b93394eb68a1b2c0010fa",
-    "4d8b92eb4eb68a1b2c000968",
-    "516df0a9b31e2bd65e000975",
-    "515b94f41b12b0e668001049",
-    "516df191b31e2bd65e0009e1",
-    "4d8b92ee4eb68a1b2c0009ab",
-    "516ca4880f8b78ba650007ff",
-    "504a04466333be0002000019",
-    "59bd5a537622dd4d6e19f8ac"
-  ];
-
-  const randomImage = iconID[Math.floor(Math.random()*iconID.length)];
-  console.log(randomImage);
-
-  const url = searchURL + 'artworks/' + randomImage;
-
-  fetch(url, auth)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(response.statusText);
-    })
-    .then(responseJson => displayImage(responseJson))
-    .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
-    });
-}*/
-
 $(getRandomImage);
 
-// populate image frame with image
-// and show animated sample of swiping?
-// function showInstructions() {
 
-// }
-
-// $(showInstructions);

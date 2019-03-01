@@ -4,28 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Me Something</title>
+    <title>NEXT</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
   <body>
-    <div class="container">
-      <h1>Show Me Something</h1>
-      <section id="image-frame">
-
-      </section>
-      <form id="js-form">
-        
-      </form>
-      <button class="btn"><i class="fa fa-thumbs-o-down"></i></button>
-      <button class="btn"><i class="fa fa-thumbs-o-up"></i></button>
-      
-           <p id="js-error-message" class="error-message"></p>
+    <main role="main" class="container">
+      <header>
+        <h1>NEXT</h1>
+      </header>
+      <div id="js-image-frame"></div>
+      <div id="js-app-greeting" class="greeting">
+        <p>Swipe right on the image or click on the thumbs up icon to see more artworks like it.
+          <br>Swipe left or click thumbs down to see something different.</p>
+      </div>
+      <div id="artwork-info" class="artwork-info">
+        <div id="js-art-info-basic" class="art-info-basic">
+          <p>Title: <span class="art-title"></span></p>
+          <p>Artist: <span class="artist"></span></p>
         </div>
-        <footer>
-          <p><Info about Artsy. Mail me for questions.</p>
-        </footer>
-        <script src="script.js"></script>
-      </body>
-    </html>
+        <button class="info-button"><i class="fas fa-info-circle"></i></button>
+        <div id="artwork-more-info" class="artwork-more-info hidden">
+          <p>Date: <span class="art-date"></span></p>
+          <p>Category: <span class="art-category"></span></p>
+          <p>Medium: <span class="art-medium"></span></p>
+          <p>Collecting Institution: <span class="art-institution"></span></p>
+          <p>More information at <a class="artsy-link" href="">Artsy</a></p>
+        </div>
+      </div>
+      <form id="js-like-form">
+        <button class="btn thumbs-down"><i class="far fa-thumbs-down"></i></i></button>
+        <button class="btn thumbs-up"><i class="far fa-thumbs-up"></i></i></button>
+      </form>
+        <p id="js-error-message" class="error-message"></p>
+    </main>
+    <footer>
+      <p>This application uses the <a target="_blank" href="https://developers.artsy.net/">Artsy API </a>but is not endorsed or certified by Artsy.
+        <br>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API.</a></p>
+      <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
+    </footer>
+      <script src="script.js"></script>
+  </body>
+</html>

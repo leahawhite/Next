@@ -4,25 +4,40 @@ const xappToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsImV4cCI6
 
 const searchURL = 'https://api.artsy.net/api/';
 
+const auth = {
+  headers: new Headers({
+    "X-XAPP-Token": xappToken})
+};
+
+// cached jQuery selectors
+const $errorMessage = $('#js-error-message');
+const $imageFrame = $('#js-image-frame');
+const $artTitle = $('.art-title');
+const $artDate = $('.art-date');
+const $artMedium = $('.art-medium');
+const $artInstitution = $('.art-institution');
+const $artsyLink = $('.artsy-link');
+const $infoButton = $('.info-button');
+const $artMoreInfo = $('#artwork-more-info');
+const $thumbsUp = $('.thumbs-up');
+const $thumbsDown = $('.thumbs-down');
+const $artist = $('.artist');
+
 // when info button is clicked,
 // remove hidden class and display
 function showMoreInfo() {
-  $('.info-button').click(event => {
-    $('#artwork-more-info').removeClass('hidden');
+  $infoButton.click(event => {
+    $artMoreInfo.removeClass('hidden');
   });
 }
 
 // when thumbs-up button is clicked,
 // retrieve similar image from the API and display
 function getSimilarImage(artworkID) {
-  $('.button-thumbs-up').click(event => {
+  $thumbsUp.click(event => {
     
     console.log('getSimilarImage ran');
-    const auth = {
-      headers: new Headers({
-        "X-XAPP-Token": xappToken})
-    };
-  
+      
     const similarParams = {similar_to_artwork_id: artworkID};
     console.log(similarParams);
     const queryString = formatQueryParams(similarParams)
@@ -39,58 +54,70 @@ function getSimilarImage(artworkID) {
       })
       .then(responseJson => displaySimilarImage(responseJson))
       .catch(err => {
-        $('#js-error-message').text(`Something went wrong: ${err.message}`);
+        $errorMessage.text(`Something went wrong: ${err.message}`);
       });
-      
   });
 }
-
    
 // display retrieved image and title
 function displaySimilarImage(responseJson) {
   console.log(responseJson);
 
-  let image = responseJson._embedded.artworks[0]._links.image.href.split("{", 1);
-  let large = responseJson._embedded.artworks[0].image_versions[0];
+  const similarArtworks = responseJson._embedded.artworks;
+  const sample = similarArtworks[Math.floor(Math.random()*similarArtworks.length)];
+  
+  let image = sample._links.image.href.split("{", 1);
+  let large = sample.image_versions[0];
+  
+  // avoid "large_rectangle" size if no "large"
+  if (large === "large_rectangle") {
+    let large = sample.image_versions[1];
+  } else {
+    let large = sample.image_versions[0];
+  }
+
   let largeImage = image + large + ".jpg";
 
-  $('#js-image-frame').html(
+  $imageFrame.html(
     `<img src="${largeImage}" 
-    alt="${responseJson._embedded.artworks[0].slug}">`);
+    alt="${sample.slug}">`);
   
-  $('.art-title').html(
-    `"${responseJson._embedded.artworks[0].title}"`);
+  $artTitle.html(
+    `${sample.title}`);
 
-  $('.art-date').html(
-      `"${responseJson._embedded.artworks[0].date}"`);
-  $('.art-medium').html(
-    `"${responseJson._embedded.artworks[0].medium}"`);
-  $('.art-institution').html(
-    `"${responseJson._embedded.artworks[0].collecting_institution}"`);
-  $('.artsy-link').attr("href", `${responseJson._embedded.artworks[0]._links.permalink.href}`);
-
-  const artworkID = responseJson._embedded.artworks[0].id;
+  if (sample.date === "") {
+    $artDate.html("N/A")
+  } else {
+    $artDate.html(`${sample.date}`);
+  }
+  if (sample.medium === "") {
+    $artMedium.html("N/A")
+  } else {
+    $artMedium.html(`${sample.medium}`);
+  }
+  if (sample.collecting_institution === "") {
+    $artInstitution.html("N/A")
+  } else {
+    $artInstitution.html(`${sample.collecting_institution}`);
+  }
+  $artsyLink.attr("href", `${sample._links.permalink.href}`);
+ 
+  const artworkID = sample.id;
   console.log(artworkID);
   getArtist(artworkID);
-  getSimilarImage(artworkID);
-  getDifferentImage();
 }
 
 // when thumbs-down button is clicked,
 // retrieve new random image from API and display
 function getDifferentImage() {
-  $('.button-thumbs-down').click(event => {
+  $thumbsDown.click(event => {
     getRandomImage();
   });
 }
 
 // get and display artist name
 function getArtist(artworkID) {
-  const auth = {
-    headers: new Headers({
-      "X-XAPP-Token": xappToken})
-  };
-
+  
   const artistParams = {artwork_id: artworkID};
   console.log(artistParams);
   const queryString = formatQueryParams(artistParams)
@@ -107,35 +134,56 @@ function getArtist(artworkID) {
     })
     .then(responseJson => displayArtist(responseJson))
     .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+      $errorMessage.text(`Something went wrong: ${err.message}`);
     });
 }
 
 function displayArtist(responseJson) {
-  $('.artist').html(
-    `"${responseJson._embedded.artists[0].name}"`);
+  const artists = responseJson._embedded.artists;
+  if (artists.length < 1) {
+    $artist.html("Unknown");
+  } else {
+    $artist.html(`${artists[0].name}`);}
 }
 
 // display retrieved image and info
 function displayImage(responseJson) {
+  
   console.log(responseJson);
+   
   let image = responseJson._links.image.href.split("{", 1);
   let large = responseJson.image_versions[0];
+        
+  if (large === "large_rectangle") {
+    let large = responseJson.image_versions[1];
+  } else {
+    let large = responseJson.image_versions[0];
+  }
+
   let largeImage = image + large + ".jpg";
   
-  $('#js-image-frame').html(
+  $imageFrame.html(
     `<img src="${largeImage}" 
     alt="${responseJson.slug}">`);
-
-  $('.art-title').html(
-    `"${responseJson.title}"`);
-  $('.art-date').html(
-      `"${responseJson.date}"`);
-  $('.art-medium').html(
-    `"${responseJson.medium}"`);
-  $('.art-institution').html(
-    `"${responseJson.collecting_institution}"`);
-  $('.artsy-link').attr("href", `${responseJson._links.permalink.href}`);
+  $artTitle.html(
+    `${responseJson.title}`);
+  
+  if (responseJson.date === "") {
+    $artDate.html('N/A')
+  } else {
+    $artDate.html(`${responseJson.date}`);
+  }
+  if (responseJson.medium === "") {
+    $artMedium.html('N/A')
+  } else {
+    $artMedium.html(`${responseJson.medium}`);
+  }
+  if (responseJson.collecting_institution === "") {
+    $artInstitution.html('N/A')
+  } else {
+    $artInstitution.html(`${responseJson.collecting_institution}`);
+  }
+  $artsyLink.attr("href", `${responseJson._links.permalink.href}`);
       
   const artworkID = responseJson.id;
   console.log(artworkID);
@@ -156,11 +204,9 @@ function formatQueryParams(params) {
 // format params for random search,
 // contact API for one image and display it
 function getRandomImage() {
-  const auth = {
-    headers: new Headers({
-      "X-XAPP-Token": xappToken})
-  };
 
+  console.log("getRandomImage ran");
+  
   const randomParams = {sample: 1};
   const queryString = formatQueryParams(randomParams)
   const url = searchURL + 'artworks' + '?' + queryString;
@@ -176,7 +222,7 @@ function getRandomImage() {
     })
     .then(responseJson => displayImage(responseJson))
     .catch(err => {
-      $('#js-error-message').text(`Something went wrong: ${err.message}`);
+      $errorMessage.text(`Something went wrong: ${err.message}`);
     });
 }
 

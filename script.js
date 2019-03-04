@@ -67,13 +67,13 @@ function displaySimilarImage(responseJson) {
   const sample = similarArtworks[Math.floor(Math.random()*similarArtworks.length)];
   
   let image = sample._links.image.href.split("{", 1);
-  let large = sample.image_versions[0];
+  let large; 
   
   // avoid "large_rectangle" size if no "large"
-  if (large === "large_rectangle") {
-    let large = sample.image_versions[1];
+  if (sample.image_versions[0] === "large_rectangle") {
+    large = sample.image_versions[1];
   } else {
-    let large = sample.image_versions[0];
+    large = sample.image_versions[0];
   }
 
   let largeImage = image + large + ".jpg";

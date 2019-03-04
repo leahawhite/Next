@@ -27,24 +27,21 @@ const $artist = $('.artist');
 // remove hidden class and display
 function showMoreInfo() {
   $infoButton.click(event => {
-    $artMoreInfo.removeClass('hidden');
+    $artMoreInfo.toggleClass('hidden');
   });
 }
 
 // when thumbs-up button is clicked,
 // retrieve similar image from the API and display
-function getSimilarImage(artworkID) {
+function getSimilarImage() {
   $thumbsUp.click(event => {
     
-    console.log('getSimilarImage ran');
+    let artworkID = $("#artworkID").val();
       
     const similarParams = {similar_to_artwork_id: artworkID};
-    console.log(similarParams);
     const queryString = formatQueryParams(similarParams);
     const url = searchURL + 'artworks' + '?' + queryString;
-  
-    console.log(url);
-  
+    
     fetch(url, auth)
       .then(response => {
         if (response.ok) {
@@ -61,16 +58,15 @@ function getSimilarImage(artworkID) {
    
 // display retrieved image and title
 function displaySimilarImage(responseJson) {
-  console.log(responseJson);
-
+  
   const similarArtworks = responseJson._embedded.artworks;
   const sample = similarArtworks[Math.floor(Math.random()*similarArtworks.length)];
   
   let image = sample._links.image.href.split("{", 1);
   let large; 
   
-  // avoid "large_rectangle" size if no "large"
-  if (sample.image_versions[0] === "large_rectangle") {
+  // avoid cropped image versions
+  if (sample.image_versions[0] !== "large") {
     large = sample.image_versions[1];
   } else {
     large = sample.image_versions[0];
@@ -103,7 +99,7 @@ function displaySimilarImage(responseJson) {
   $artsyLink.attr("href", `${sample._links.permalink.href}`);
  
   const artworkID = sample.id;
-  console.log(artworkID);
+  $("#artworkID").val(artworkID);
   getArtist(artworkID);
 }
 
@@ -119,7 +115,6 @@ function getDifferentImage() {
 function getArtist(artworkID) {
   
   const artistParams = {artwork_id: artworkID};
-  console.log(artistParams);
   const queryString = formatQueryParams(artistParams)
   const url = searchURL + 'artists' + '?' + queryString;
 
@@ -149,12 +144,11 @@ function displayArtist(responseJson) {
 // display retrieved image and info
 function displayImage(responseJson) {
   
-  console.log(responseJson);
-   
   let image = responseJson._links.image.href.split("{", 1);
-  let large = responseJson.image_versions[0];
-        
-  if (large === "large_rectangle") {
+  let large;
+  
+  // avoid cropped images
+  if (responseJson.image_versions[0] !== "large") {
     large = responseJson.image_versions[1];
   } else {
     large = responseJson.image_versions[0];
@@ -162,7 +156,7 @@ function displayImage(responseJson) {
 
   let largeImage = image + large + ".jpg";
 
- $imageFrame.html(
+  $imageFrame.html(
     `<img class="image-frame" src="${largeImage}" 
     alt="${responseJson.slug}">`);
     
@@ -187,11 +181,8 @@ function displayImage(responseJson) {
   $artsyLink.attr("href", `${responseJson._links.permalink.href}`);
       
   const artworkID = responseJson.id;
-  console.log(artworkID);
-
+  $("#artworkID").val(artworkID);
   getArtist(artworkID);
-  getSimilarImage(artworkID);
-  getDifferentImage();
 }
  
 // format parameter values for query string
@@ -206,13 +197,9 @@ function formatQueryParams(params) {
 // contact API for one image and display it
 function getRandomImage() {
 
-  console.log("getRandomImage ran");
-  
   const randomParams = {sample: 1};
   const queryString = formatQueryParams(randomParams);
   const url = searchURL + 'artworks' + '?' + queryString;
-
-  console.log(url);
 
   fetch(url, auth)
     .then(response => {
@@ -227,4 +214,11 @@ function getRandomImage() {
     });
 }
 
-getRandomImage();
+$(function() {
+  getRandomImage();
+  getSimilarImage();
+  getDifferentImage();
+  showMoreInfo();
+});
+
+

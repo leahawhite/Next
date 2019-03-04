@@ -19,21 +19,37 @@ img {
   padding: 1em;
 }
 
-/* .hidden { */
-  display: none;
+header, footer {
+  text-align: center;
+}
+
+footer {
+  border-top: 1px solid gray;
 }
 
 .app-title {
   margin: 10px auto; 
+  text-align: center;
 }
 
-#js-image-frame {
-  max-width: 95%;
-  margin: 0 auto;
+.greeting {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.image-container {
+  position: relative;
 }
 
 .error-message {
   color: red;
+}
+
+.fas {
+  font-size: 1.5em;
 }
 
 .far {
@@ -42,15 +58,38 @@ img {
 
 .image-frame {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .info-button {
   cursor: pointer;
- }
-
-.image-frame {
-
+  margin: 0 0 20px 0;
 }
+
+.info-container {
+  text-align: center;
+}
+
+#artwork-info {
+  margin: 20px auto;
+  max-width: 400px;
+  padding: 0 1em;
+}
+
+#js-image-frame {
+  max-width: 95%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#js-like-form {
+  text-align: center;
+}
+
+#social-media {
+  margin: 20px auto;
+  max-width: 400px;
+  font-size: 1em;
+  text-align: center;
+}
+
 

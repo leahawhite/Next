@@ -40,7 +40,7 @@ function getSimilarImage(artworkID) {
       
     const similarParams = {similar_to_artwork_id: artworkID};
     console.log(similarParams);
-    const queryString = formatQueryParams(similarParams)
+    const queryString = formatQueryParams(similarParams);
     const url = searchURL + 'artworks' + '?' + queryString;
   
     console.log(url);
@@ -79,7 +79,7 @@ function displaySimilarImage(responseJson) {
   let largeImage = image + large + ".jpg";
 
   $imageFrame.html(
-    `<img src="${largeImage}" 
+    `<img class="image-frame" src="${largeImage}" 
     alt="${sample.slug}">`);
   
   $artTitle.html(
@@ -155,16 +155,17 @@ function displayImage(responseJson) {
   let large = responseJson.image_versions[0];
         
   if (large === "large_rectangle") {
-    let large = responseJson.image_versions[1];
+    large = responseJson.image_versions[1];
   } else {
-    let large = responseJson.image_versions[0];
+    large = responseJson.image_versions[0];
   }
 
   let largeImage = image + large + ".jpg";
-  
-  $imageFrame.html(
-    `<img src="${largeImage}" 
+
+ $imageFrame.html(
+    `<img class="image-frame" src="${largeImage}" 
     alt="${responseJson.slug}">`);
+    
   $artTitle.html(
     `${responseJson.title}`);
   
@@ -208,7 +209,7 @@ function getRandomImage() {
   console.log("getRandomImage ran");
   
   const randomParams = {sample: 1};
-  const queryString = formatQueryParams(randomParams)
+  const queryString = formatQueryParams(randomParams);
   const url = searchURL + 'artworks' + '?' + queryString;
 
   console.log(url);
@@ -226,6 +227,4 @@ function getRandomImage() {
     });
 }
 
-$(getRandomImage);
-
-
+getRandomImage();

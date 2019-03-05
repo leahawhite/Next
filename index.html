@@ -6,40 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>NEXT</title>
     <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" 
+    crossorigin="anonymous"></script>
 </head>
   <body>
-    <main role="main" class="container">
-      <header role="header">
-        <h1 class="app-title">NEXT</h1>
-        <div id="js-app-greeting" class="greeting">
-            <p>Swipe right or like the image to see similar artworks.
-              <br>Swipe left or click thumbs down to see something different.</p>
+    <header role="header">
+      <h1 class="app-title">Next</h1>
+      <div id="js-app-greeting" class="greeting">
+        <p>Swipe right or like the image to see similar artworks.
+          <br>Swipe left or click thumbs down to see something different.</p>
         </div>
-      </header>
-      <div id="js-image-frame"></div>
-      <div class="info-container">
-        <button type="button" class="info-button"><i class="fas fa-info-circle"></i></button>
-      </div>
-      <form id="js-like-form">
-          <button type="button" class="btn thumbs-down"><i class="far fa-thumbs-down"></i></i></button>
-          <button type="button" class="btn thumbs-up"><i class="far fa-thumbs-up"></i></i></button>
-          <input type="hidden" id="artworkID" name="artworkID" value=""></input>
-      </form>
-      <div id="artwork-info" class="artwork-info">
+    </header>
+    <main role="main" class="content">
+      <section class="artwork-display"> 
+        <div id="image-container">
+          <div id="js-image-frame"></div>
+        <div class="info-container">
+          <button type="button" class="info-button"><i class="fas fa-info-circle"></i></button>
+        </div>
+        <form id="js-like-form">
+            <button type="button" class="btn thumbs-down"><i class="far fa-thumbs-down"></i></i></button>
+            <button type="button" class="btn thumbs-up"><i class="far fa-thumbs-up"></i></i></button>
+            <input type="hidden" id="artworkID" name="artworkID" value=""></input>
+        </form>
+      </section>
+      <section id="artwork-info" class="artwork-info">
         <div id="js-art-info-basic" class="art-info-basic">
-          <p>Title: <span class="art-title"></span></p>
-          <p>Artist: <span class="artist"></span></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Title:</span><span class="art_value-title"></span></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Artist:</span><span class="art_value-artist"></span></p>
         </div>
         <div id="artwork-more-info" class="artwork-more-info hidden">
-          <p>Date: <span class="art-date"></span></p>
-          <p>Medium: <span class="art-medium"></span></p>
-          <p>Collecting Institution: <span class="art-institution"></span></p>
-          <p>See additional information at <a target="_blank" class="artsy-link" href=>Artsy.</a></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Date:</span><span class="art_value-date"></span></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Medium:</span><span class="art_value-medium"></span></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Collecting Institution:</span><span class="art_value-institution"></span></p>
+          <p class="artwork-info-row">
+            <span class="artwork-label">Additional:</span><span class="art_value-more">See more details at 
+              <a target="_blank" class="artsy-link" href=>Artsy</a></span></p>
         </div>
-      </div>
+      </section>
       <div id="social-media">
           <a class="share" href="">
             <i class="fas fa-link"></i></a>
@@ -48,15 +60,14 @@
           <a class="share" target="_blank" href="">
             <i class="fab fa-twitter"></i></a>
           <a class="share" target="_blank" href="">
-            <i class="fab fa-pinterest"></i></a>
-          <a class="share" target="_blank" href="">
             <i class="fas fa-envelope"></i></a>
         </div>
       <p id="js-error-message" class="error-message"></p>
     </main>
     <footer>
-      <p>This application uses the <a target="_blank" href="https://developers.artsy.net/">Artsy API </a>but is not endorsed or certified by Artsy.
-        <br>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API.</a></p>
+      <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API but is not endorsed or certified by Artsy.</a></p>
+      <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+         title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
       <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
     </footer>
       <script src="script.js"></script>

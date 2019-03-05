@@ -3,10 +3,12 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Playfair Display', serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
+  color: #666666;
 }
 
 button:hover {
@@ -19,17 +21,55 @@ img {
   padding: 1em;
 }
 
-header, footer {
-  text-align: center;
+header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgb(204,204,204);
 }
 
 footer {
-  border-top: 1px solid gray;
+  border-top: 1px solid  rgb(204,204,204);
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color:  #e83a17; 
+}
+
+p {
+  font-family: 'Source Sans Pro';
 }
 
 .app-title {
+  font-family: 'Playfair Display';
   margin: 10px auto; 
-  text-align: center;
+  font-size: 45px;
+  color: #e83a17; 
+}
+
+.artwork-info {
+  font-size: 20px;
+  margin: 20px auto;
+  max-width: 720px;
+  padding: 0;
+}
+
+.artwork-info-row {
+  padding: 5px 0;
+  margin: 0;
+}
+
+.artwork-label {
+  width: 35%;
+  float: left;
+  font-weight: 500;
+}
+
+.art_value {
+  width: 60%;
+  float: right;
 }
 
 .greeting {
@@ -38,10 +78,6 @@ footer {
 
 .hidden {
   display: none;
-}
-
-.image-container {
-  position: relative;
 }
 
 .error-message {
@@ -69,12 +105,6 @@ footer {
   text-align: center;
 }
 
-#artwork-info {
-  margin: 20px auto;
-  max-width: 400px;
-  padding: 0 1em;
-}
-
 #js-image-frame {
   max-width: 95%;
   margin: 0 auto;
@@ -90,6 +120,54 @@ footer {
   max-width: 400px;
   font-size: 1em;
   text-align: center;
+}
+
+@media only screen and (min-width: 720px) {
+
+  body {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  header > p {
+    display: inline;
+  }
+
+  .artwork-display {
+    background-color: #f8f8f8;
+    width: 63%;
+    float: right;
+  }
+
+  .artwork-info {
+    width: 35%;
+    float: left;
+  }
+
+  .artwork-more-info {
+    display: block;
+  }
+
+  .artwork-label {
+    width: 28%;
+  }
+  
+  .art_value {
+    width: 65%;
+  }
+
+  .info-container {
+    display: none;
+  }
+
+  #social-media {
+    display: block;
+    clear: both;
+  }
+
+  footer {
+    clear: both;
+  }
 }
 
 

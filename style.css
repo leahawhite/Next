@@ -150,6 +150,9 @@ dd {
   top: 0;
   right: 5;
   float: right;
+  color: #666666;
+  background: transparent;
+  border: none;
 }
 
 #js-image-frame {

@@ -22,12 +22,13 @@ img {
 }
 
 header {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgb(204,204,204);
 }
 
 footer {
   border-top: 1px solid  rgb(204,204,204);
+  padding: 15px;
   width: 100%;
   text-align: center;
 }
@@ -42,34 +43,52 @@ p {
   font-family: 'Source Sans Pro';
 }
 
+main {
+  width: 95%;
+  margin: auto;
+}
+
 .app-title {
   font-family: 'Playfair Display';
-  margin: 10px auto; 
+  margin: 10px 0 5px 20px; 
   font-size: 45px;
   color: #e83a17; 
 }
 
-.artwork-info {
-  font-size: 20px;
-  margin: 20px auto;
-  max-width: 720px;
+.app-description {
+  margin: 0 0 0 20px;
+  font-size: 18px;
+}
+
+.artwork-display {
+  text-align: center;
+  margin: 0 auto 30px auto;
+}
+
+#artwork-info {
+  font-size: 16px;
+  margin: 0 10%;
+  padding: 0;
+}
+
+.art-info-list {
+  margin: 0;
   padding: 0;
 }
 
 .artwork-info-row {
-  padding: 5px 0;
+  padding: 7px 0 0 0;
   margin: 0;
+  font-weight: bold;
 }
 
-.artwork-label {
-  width: 35%;
-  float: left;
-  font-weight: 500;
+.first {
+  padding: 0;
 }
 
-.art_value {
-  width: 60%;
-  float: right;
+dd {
+  padding: 0 0 7px 0;
+  margin: 0;
 }
 
 .greeting {
@@ -84,25 +103,53 @@ p {
   color: red;
 }
 
-.fas {
-  font-size: 1.5em;
-}
-
-.far {
-  font-size: 3em;
+.fas, .fab {
+  font-size: 1em;
 }
 
 .image-frame {
   position: relative;
 }
 
-.info-button {
-  cursor: pointer;
-  margin: 0 0 20px 0;
+#image-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
-.info-container {
-  text-align: center;
+.left-nav, .right-nav {
+  position: absolute;
+  font-size: 18px;
+  margin: -10px;
+  top:50%;
+  transform:translateY(-50%);
+  color: #666666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.left-nav {
+  left: 0;
+}
+
+.right-nav {
+  right: 0;
+}
+
+#instructions {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.minimize-button {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  top: 0;
+  right: 5;
+  float: right;
 }
 
 #js-image-frame {
@@ -115,54 +162,113 @@ p {
   text-align: center;
 }
 
-#social-media {
-  margin: 20px auto;
-  max-width: 400px;
-  font-size: 1em;
-  text-align: center;
+.social-media {
+  margin: 0 10%;
 }
 
-@media only screen and (min-width: 720px) {
+.share-text {
+  margin: 0;
+  padding: 10px 0 0 0;
+  font-weight: bold;
+}
+
+#social-media a {
+  padding-right: 10px;
+  font-size: 20px;
+}
+
+.social-links {
+  padding: 10px 0 40px 0;
+  font-size: 20px;
+}
+
+.spinner {
+  display: inline;
+  padding-left: 20px;
+}
+
+.loadcircle {
+  display: inline;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.loadtext {
+  display: inline;
+  font-size: 34px;
+}
+
+footer > p {
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media only screen and (min-width: 900px) {
 
   body {
     width: 80%;
     margin: 0 auto;
   }
 
-  header > p {
-    display: inline;
+  main {
+    width: 100%;
+  }
+
+  .app-description {
+    margin: 0;
+  }
+
+  .app-title {
+    margin: 0 0 5px 0px; 
+    padding: 10px 0;
+    font-size: 45px;
+    color: #e83a17; 
   }
 
   .artwork-display {
     background-color: #f8f8f8;
+    margin: 20px 0 40px 0;
     width: 63%;
     float: right;
   }
 
-  .artwork-info {
+  #artwork-info {
     width: 35%;
+    margin: 20px 0 0 0;
     float: left;
+    font-size: 18px;
   }
 
-  .artwork-more-info {
-    display: block;
-  }
-
-  .artwork-label {
-    width: 28%;
+  .artwork-info-row {
+    padding: 10px 0 0 0;
   }
   
-  .art_value {
-    width: 65%;
-  }
-
-  .info-container {
-    display: none;
+  dd {
+    padding: 0 0 10px 0;
   }
 
   #social-media {
+    width: 35%;
+    float: left;
+    text-align: left;
+    margin: 0 0 40px 0;
+  }
+
+  #social-media p {
+    text-align: left;
+    font-size: 18px;
+  }
+
+  .social-links {
     display: block;
-    clear: both;
+    margin: 0;
+    padding: 10px 10px 0 0;
+  }
+ 
+  #social-media a {
+    padding: 10px;
+    font-size: 20px;
   }
 
   footer {

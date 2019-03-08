@@ -67,6 +67,7 @@ main {
 
 #artwork-info {
   display: flex;
+  width: auto;
   max-width: 400px;
   font-size: 16px;
   margin: 0 10%;

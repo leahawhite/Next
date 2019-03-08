@@ -19,27 +19,24 @@ const $artDate = $('.art_value-date');
 const $artMedium = $('.art_value-medium');
 const $artInstitution = $('.art_value-institution');
 const $artsyLink = $('.artsy-link');
-const $minimizeButton = $('.minimize-button');
-const $greeting = $('.greeting');
 const $rightNav = $('.right-nav');
 const $leftNav = $('.left-nav');
 const $artist = $('.art_value-artist');
+const $spinner = $('.spinner');
+const $main = $('main');
 
 let isFetching = false;
 
-// when minimize button is clicked, hide instructions
-function hideInstructions() {
-  $minimizeButton.click(event => {
-    $greeting.toggle();
-    $(this).find('i').toggleClass('fas-fa-plus fas-fa-minus')
-  });
-}
-
 // when user swipes right on image,
 // retrieve similar image from API and display
-/*function swipeSimilar() {
-  $imageFrame.on("swiperight",function(event) {
-    console.log("swipeSimilar ran");
+/*function swipeRight() {
+  // create a simple instance for Hammer.js swipe
+  const mc = new Hammer(imageFrame);
+  
+  // listen to events...
+  mc.on("panright", function(ev) {
+    console.log("swipeRight ran");
+    
     let artworkID = $("#artworkID").val();
       
     const similarParams = {similar_to_artwork_id: artworkID};
@@ -62,11 +59,11 @@ function hideInstructions() {
 
 function setSpinner() {
   if (isFetching) {
-    $('.spinner').css({ display: 'block' });
-    $('main').css({ display: 'none' });
+    $spinner.css({ display: 'block' });
+    $main.css({ display: 'none' });
   } else {
-    $('.spinner').css({ display: 'none' });
-    $('main').css({ display: 'block' });
+    $spinner.css({ display: 'none' });
+    $main.css({ display: 'block' });
   }
 }
 
@@ -111,53 +108,64 @@ function displaySimilarImage(responseJson) {
   const similarArtworks = responseJson._embedded.artworks;
   const sample = similarArtworks[Math.floor(Math.random() * similarArtworks.length)];
 
-  let image = sample._links.image.href.split('{', 1);
-  let large;
-
-  // avoid cropped image versions
-  if (sample.image_versions[0] !== 'large'
-      && sample.image_versions[0] !== 'larger') {
-    large = sample.image_versions[1];
+  // if there is no image available,
+  // get new random image and display
+  if ( !similarArtworks.length || !("image" in sample._links)) {
+    getRandomImage();
   } else {
-    large = sample.image_versions[0];
+
+    let image = sample._links.image.href.split('{', 1);
+    let large;
+
+    // avoid cropped image versions
+    if (sample.image_versions[0] !== 'large'
+        && sample.image_versions[0] !== 'larger') {
+      large = sample.image_versions[1];
+    } else {
+      large = sample.image_versions[0];
+    }
+
+    let largeImage = image + large + '.jpg';
+
+    $imageFrame.html(
+      `<img class="image-frame" src="${largeImage}" 
+      alt="${sample.slug}">`
+    );
+
+    $artTitle.html(`${sample.title}`);
+
+    if (sample.date === '') {
+      $artDate.html('N/A');
+    } else {
+      $artDate.html(`${sample.date}`);
+    }
+    if (sample.medium === '') {
+      $artMedium.html('N/A');
+    } else {
+      $artMedium.html(`${sample.medium}`);
+    }
+    if (sample.collecting_institution === '') {
+      $artInstitution.html('N/A');
+    } else {
+      $artInstitution.html(`${sample.collecting_institution}`);
+    }
+    $artsyLink.attr('href', `${sample._links.permalink.href}`);
+
+    const artworkID = sample.id;
+    $('#artworkID').val(artworkID);
+    console.log(artworkID);
+    getArtist(artworkID);
   }
-
-  let largeImage = image + large + '.jpg';
-
-  $imageFrame.html(
-    `<img class="image-frame" src="${largeImage}" 
-    alt="${sample.slug}">`
-  );
-
-  $artTitle.html(`${sample.title}`);
-
-  if (sample.date === '') {
-    $artDate.html('N/A');
-  } else {
-    $artDate.html(`${sample.date}`);
-  }
-  if (sample.medium === '') {
-    $artMedium.html('N/A');
-  } else {
-    $artMedium.html(`${sample.medium}`);
-  }
-  if (sample.collecting_institution === '') {
-    $artInstitution.html('N/A');
-  } else {
-    $artInstitution.html(`${sample.collecting_institution}`);
-  }
-  $artsyLink.attr('href', `${sample._links.permalink.href}`);
-
-  const artworkID = sample.id;
-  $('#artworkID').val(artworkID);
-  console.log(artworkID);
-  getArtist(artworkID);
 }
 
-/*// when user swipes right,
-// retrieve new random image from API and display
-function swipeDifferent() {
-  $imageFrame.on("swipeleft",function(event) {
+// when user swipes left on image,
+// retrieve new random image and display
+/*function swipeLeft() {
+    // create a simple instance for Hammer.js swipe
+    const mc = new Hammer(imageFrame);
+  // listen to events...
+    mc.on("panleft", function(ev) {
+    console.log("swipeLeft ran");
     getRandomImage();
   });
 }*/
@@ -210,48 +218,65 @@ function displayArtist(responseJson) {
 function displayImage(responseJson) {
   console.log(responseJson);
 
-  let image = responseJson._links.image.href.split('{', 1);
-  let large;
-
-  // avoid cropped images
-  if (responseJson.image_versions[0] !== 'large'
-      && sample.image_versions[0] !== 'larger') {
-    large = responseJson.image_versions[1];
+  // if there is no image available,
+  // get new random image and display
+  if (!("image" in responseJson._links)) {
+    getRandomImage();
   } else {
-    large = responseJson.image_versions[0];
+
+    let image = responseJson._links.image.href.split('{', 1);
+    let large;
+
+    // avoid cropped images
+    if (responseJson.image_versions[0] !== 'large'
+        && sample.image_versions[0] !== 'larger') {
+      large = responseJson.image_versions[1];
+    } else {
+      large = responseJson.image_versions[0];
+    }
+
+    let largeImage = image + large + '.jpg';
+
+    $imageFrame.html(
+      `<img class="image-frame" src="${largeImage}" 
+      alt="${responseJson.slug}">`
+    );
+
+    $artTitle.html(`${responseJson.title}`);
+
+    if (responseJson.date === '') {
+      $artDate.html('N/A');
+    } else {
+      $artDate.html(`${responseJson.date}`);
+    }
+    if (responseJson.medium === '') {
+      $artMedium.html('N/A');
+    } else {
+      $artMedium.html(`${responseJson.medium}`);
+    }
+    if (responseJson.collecting_institution === '') {
+      $artInstitution.html('N/A');
+    } else {
+      $artInstitution.html(`${responseJson.collecting_institution}`);
+    }
+    $artsyLink.attr('href', `${responseJson._links.permalink.href}`);
+
+    const permalink = responseJson._links.permalink.href;
+    // linkSocialMedia(permalink);
+    const artworkID = responseJson.id;
+    $('#artworkID').val(artworkID);
+    console.log(artworkID);
+    getArtist(artworkID);
   }
-
-  let largeImage = image + large + '.jpg';
-
-  $imageFrame.html(
-    `<img class="image-frame" src="${largeImage}" 
-    alt="${responseJson.slug}">`
-  );
-
-  $artTitle.html(`${responseJson.title}`);
-
-  if (responseJson.date === '') {
-    $artDate.html('N/A');
-  } else {
-    $artDate.html(`${responseJson.date}`);
-  }
-  if (responseJson.medium === '') {
-    $artMedium.html('N/A');
-  } else {
-    $artMedium.html(`${responseJson.medium}`);
-  }
-  if (responseJson.collecting_institution === '') {
-    $artInstitution.html('N/A');
-  } else {
-    $artInstitution.html(`${responseJson.collecting_institution}`);
-  }
-  $artsyLink.attr('href', `${responseJson._links.permalink.href}`);
-
-  const artworkID = responseJson.id;
-  $('#artworkID').val(artworkID);
-  console.log(artworkID);
-  getArtist(artworkID);
 }
+
+/*linkSocialMedia(permalink) {
+  $(.share-link).attr('href', permalink);
+  $(.share-facebook).attr('href', );
+  $(.share-twitter).attr('href',);
+  $(.share-email).attr('href',);
+
+}*/
 
 // format parameter values for query string
 function formatQueryParams(params) {
@@ -292,11 +317,12 @@ function getRandomImage() {
     });
 }
 
+const imageFrame = document.getElementById('js-image-frame');
+
 $(function() {
   getRandomImage();
-  // swipeSimilar();
-  // swipeDifferent();
+  // swipeRight();
+  // swipeLeft();
   getSimilarImage();
   getDifferentImage();
-  hideInstructions();
 });

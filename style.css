@@ -26,9 +26,21 @@ header {
   border-bottom: 1px solid rgb(204,204,204);
 }
 
+.app-title {
+  font-family: 'Playfair Display';
+  margin: 10px 0 5px 20px; 
+  font-size: 45px;
+  color: #e83a17; 
+}
+
+.app-description {
+  margin: 0 0 0 20px;
+  font-size: 18px;
+}
+
 footer {
   border-top: 1px solid  rgb(204,204,204);
-  padding: 15px;
+  padding: 15px 30px;
   width: 100%;
   text-align: center;
 }
@@ -48,26 +60,16 @@ main {
   margin: auto;
 }
 
-.app-title {
-  font-family: 'Playfair Display';
-  margin: 10px 0 5px 20px; 
-  font-size: 45px;
-  color: #e83a17; 
-}
-
-.app-description {
-  margin: 0 0 0 20px;
-  font-size: 18px;
-}
-
 .artwork-display {
   text-align: center;
   margin: 0 auto 30px auto;
 }
 
 #artwork-info {
+  display: flex;
+  max-width: 400px;
   font-size: 16px;
-  margin: 0 10%;
+  margin: 0 auto;
   padding: 0;
 }
 
@@ -107,52 +109,8 @@ dd {
   font-size: 1em;
 }
 
-.image-frame {
-  position: relative;
-}
-
 #image-container {
-  position: relative;
-  display: inline-block;
   text-align: center;
-}
-
-.left-nav, .right-nav {
-  position: absolute;
-  font-size: 18px;
-  margin: -10px;
-  top:50%;
-  transform:translateY(-50%);
-  color: #666666;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.left-nav {
-  left: 0;
-}
-
-.right-nav {
-  right: 0;
-}
-
-#instructions {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.minimize-button {
-  position: relative;
-  cursor: pointer;
-  margin: 0;
-  top: 0;
-  right: 5;
-  float: right;
-  color: #666666;
-  background: transparent;
-  border: none;
 }
 
 #js-image-frame {
@@ -165,23 +123,22 @@ dd {
   text-align: center;
 }
 
-.social-media {
-  margin: 0 10%;
-}
-
-.share-text {
-  margin: 0;
-  padding: 10px 0 0 0;
-  font-weight: bold;
-}
-
-#social-media a {
-  padding-right: 10px;
-  font-size: 20px;
+.left-nav, .right-nav {
+  font-size: 18px;
+  color: #666666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 20px;
 }
 
 .social-links {
   padding: 10px 0 40px 0;
+  font-size: 20px;
+}
+
+.social-links a {
+  padding-right: 10px;
   font-size: 20px;
 }
 
@@ -192,14 +149,14 @@ dd {
 
 .loadcircle {
   display: inline;
-  font-size: 20px;
+  font-size: 1em;
   padding: 0;
   margin: 0;
 }
 
 .loadtext {
   display: inline;
-  font-size: 34px;
+  font-size: 26px;
 }
 
 footer > p {
@@ -207,7 +164,25 @@ footer > p {
   margin: 0;
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 600px) {
+
+  #artwork-info {
+    font-size: 16px;
+    margin: 0 20%;
+    padding: 0;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+
+  #artwork-info {
+    font-size: 18px;
+    margin: 0 30%;
+    padding: 0;
+  }
+}  
+
+@media only screen and (min-width: 1080px) {
 
   body {
     width: 80%;
@@ -220,6 +195,7 @@ footer > p {
 
   .app-description {
     margin: 0;
+    font-size: 20px;
   }
 
   .app-title {
@@ -238,9 +214,9 @@ footer > p {
 
   #artwork-info {
     width: 35%;
-    margin: 20px 0 0 0;
-    float: left;
-    font-size: 18px;
+    margin: 20px 40px 0 0;
+    padding-top: 20px;
+    justify-content: flex-start;
   }
 
   .artwork-info-row {

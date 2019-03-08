@@ -11,31 +11,27 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" 
     crossorigin="anonymous"></script>
+    <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 </head>
   <body>
     <header role="header">
       <h1 class="app-title">Next</h1>
-      <p class="app-description">A self-guided tour through art in the public domain</p>
+      <p class="app-description">A self-guided tour of art in the public domain</p>
     </header>
     <main role="main" class="content">
       <section class="artwork-display"> 
         <div id="image-container">
           <div id="js-image-frame"></div>
-          <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
-          <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
-        </div>
-        <div id="instructions">
-          <button type="button" class="minimize-button"><i class="fas fa-plus"></i></button>
-        </div>
-        <div class="greeting">
-          <p>Navigate right to see similar pieces.
-          <br>Navigate left to see something different.</p>
         </div>
         <form id="js-like-form">
-            <!-- <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button> -->
-            <!-- <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button> -->
-            <input type="hidden" id="artworkID" name="artworkID" value=""></input>
+          <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
+          <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
+          <input type="hidden" id="artworkID" name="artworkID" value=""></input>
         </form>
+        <div class="greeting">
+          <p>Click right to see something similar.
+          <br>Click left to see something different.</p>
+        </div>
       </section>
       <section id="artwork-info" class="artwork-info">
         <dl class="art-info-list">
@@ -51,26 +47,37 @@
           <dd><span class="art_value-institution"></span></dd>
           <dt class="artwork-info-row">Additional Information</dt>
           <dd><span class="art_value-more">See more details at 
-              <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
+            <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
+          <dt class="artwork-info-row">Share</dt>
+          <dd class="social-links">
+            <a class="share-link" href="">
+              <i class="fas fa-link"></i></a>
+            <a class="share-facebook" target="_blank" href="">
+              <i class="fab fa-facebook-f"></i></a>
+            <a class="share-twitter" target="_blank" href="">
+              <i class="fab fa-twitter"></i></a>
+            <a class="share-email" target="_blank" href="">
+              <i class="fas fa-envelope"></i></a>
+          </dd>
         </dl>
       </section>
-      <section id="social-media" class="social-media">
+      <!-- <section id="social-media" class="social-media">
         <p class="share-text">Share</p>
         <div class="social-links">
-          <a class="share" href="">
+          <a class="share-link" href="">
             <i class="fas fa-link"></i></a>
-          <a class="share" target="_blank" href="">
+          <a class="share-facebook" target="_blank" href="">
             <i class="fab fa-facebook-f"></i></a>
-          <a class="share" target="_blank" href="">
+          <a class="share-twitter" target="_blank" href="">
             <i class="fab fa-twitter"></i></a>
-          <a class="share" target="_blank" href="">
+          <a class="share-email" target="_blank" href="">
             <i class="fas fa-envelope"></i></a>
         </div>
-          </section>
+          </section> -->
       <p id="js-error-message" class="error-message"></p>
     </main>
     <div class="spinner">
-      <img src="images/spinner.svg" class="loadcircle">
+      <img src="images/spinner_30.svg" class="loadcircle">
       <h2 class="loadtext">Loading</h2>
     </div>
     <footer>

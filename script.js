@@ -27,36 +27,6 @@ const $main = $('main');
 
 let isFetching = false;
 
-// when user swipes right on image,
-// retrieve similar image from API and display
-/*function swipeRight() {
-  // create a simple instance for Hammer.js swipe
-  const mc = new Hammer(imageFrame);
-  
-  // listen to events...
-  mc.on("panright", function(ev) {
-    console.log("swipeRight ran");
-    
-    let artworkID = $("#artworkID").val();
-      
-    const similarParams = {similar_to_artwork_id: artworkID};
-    const queryString = formatQueryParams(similarParams);
-    const url = searchURL + 'artworks' + '?' + queryString;
-    
-    fetch(url, auth)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error(response.statusText);
-      })
-      .then(responseJson => displaySimilarImage(responseJson))
-      .catch(err => {
-        $errorMessage.text(`Something went wrong: ${err.message}`);
-      });
-  });
-}*/
-
 function setSpinner() {
   if (isFetching) {
     $spinner.css({ display: 'block' });
@@ -157,18 +127,6 @@ function displaySimilarImage(responseJson) {
     getArtist(artworkID);
   }
 }
-
-// when user swipes left on image,
-// retrieve new random image and display
-/*function swipeLeft() {
-    // create a simple instance for Hammer.js swipe
-    const mc = new Hammer(imageFrame);
-  // listen to events...
-    mc.on("panleft", function(ev) {
-    console.log("swipeLeft ran");
-    getRandomImage();
-  });
-}*/
 
 // when left-nav button is clicked,
 // retrieve new random image from API and display
@@ -321,8 +279,6 @@ const imageFrame = document.getElementById('js-image-frame');
 
 $(function() {
   getRandomImage();
-  // swipeRight();
-  // swipeLeft();
   getSimilarImage();
   getDifferentImage();
 });

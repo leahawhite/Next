@@ -1,6 +1,34 @@
+/* Keep footer at bottom */
+
 * {
   box-sizing: border-box;
 }
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  position: relative;
+}
+
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 79px; 
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* end of keep footer at bottom */
 
 body {
   font-family: 'Playfair Display', serif;
@@ -145,20 +173,16 @@ dd {
 }
 
 .spinner {
-  display: inline;
-  padding-left: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .loadcircle {
-  display: inline;
-  font-size: 1em;
+  width: 100px;
   padding: 0;
   margin: 0;
-}
-
-.loadtext {
-  display: inline;
-  font-size: 26px;
 }
 
 footer > p {

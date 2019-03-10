@@ -25,9 +25,7 @@ const $artist = $('.art_value-artist');
 const $spinner = $('.spinner');
 const $main = $('main');
 
-let isFetching = false;
-
-function setSpinner() {
+function setSpinner(isFetching) {
   if (isFetching) {
     $spinner.css({ display: 'block' });
     $main.css({ display: 'none' });
@@ -282,8 +280,6 @@ function getRandomImage() {
       $errorMessage.text(`Something went wrong: ${err.message}`);
     });
 }
-
-const imageFrame = document.getElementById('js-image-frame');
 
 $(function() {
   getRandomImage();

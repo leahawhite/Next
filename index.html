@@ -17,60 +17,62 @@
     crossorigin="anonymous"></script>
   </head>
   <body>
-    <header role="banner">
-      <h1 class="app-title">Next</h1>
-      <p class="app-description">A self-guided tour of art in the public domain</p>
-    </header>
-    <main role="main" class="content">
-      <section class="artwork-display"> 
-        <div id="image-container">
-          <div id="js-image-frame"></div>
-        </div>
-        <form id="js-like-form">
-          <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
-          <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
-          <input type="hidden" id="artworkID" name="artworkID" value=""></input>
-        </form>
-        <div class="greeting">
-          <p>Click right to see a related image.
-          <br>Click left to see something different.</p>
-        </div>
-      </section>
-      <section id="artwork-info" class="artwork-info">
-        <dl class="art-info-list">
-          <dt class="artwork-info-row first">Title</dt>
-          <dd><span class="art_value-title"></span></dd>
-          <dt class="artwork-info-row">Artist</dt>
-          <dd><span class="art_value-artist"></span></dd>
-          <dt class="artwork-info-row">Date</dt>
-          <dd><span class="art_value-date"></span></dd>
-          <dt class="artwork-info-row">Medium</dt>
-          <dd><span class="art_value-medium"></span></dd>
-          <dt class="artwork-info-row">Collecting Institution</dt>
-          <dd><span class="art_value-institution"></span></dd>
-          <dt class="artwork-info-row">Additional Information</dt>
-          <dd><span class="art_value-more">See more details at 
-            <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
-          <dt class="artwork-info-row">Share</dt>
-          <dd class="social-links">
-            <a class="share-facebook" target="_blank" href="">
-              <i class="fab fa-facebook-f"></i></a>
-            <a class="share-twitter" target="_blank" href="">
-              <i class="fab fa-twitter"></i></a>
-            <a class="share-email" target="_blank" href="">
-              <i class="fas fa-envelope"></i></a>
-          </dd>
-        </dl>
-      </section>
-      <p id="js-error-message" class="error-message"></p>
-    </main>
-    <div class="spinner">
-      <img src="images/spinner_30.svg" class="loadcircle">
+    <div class="main-container">
+      <header role="banner">
+        <h1 class="app-title">Next</h1>
+        <p class="app-description">A self-guided tour of art in the public domain</p>
+      </header>
+      <main role="main" class="content">
+        <section class="artwork-display"> 
+          <div id="image-container">
+            <div id="js-image-frame"></div>
+          </div>
+          <form id="js-like-form">
+            <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
+            <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
+            <input type="hidden" id="artworkID" name="artworkID" value=""></input>
+          </form>
+          <div class="greeting">
+            <p>Click right to see a related image.
+            <br>Click left to see something different.</p>
+          </div>
+        </section>
+        <section id="artwork-info" class="artwork-info">
+          <dl class="art-info-list">
+            <dt class="artwork-info-row first">Title</dt>
+            <dd><span class="art_value-title"></span></dd>
+            <dt class="artwork-info-row">Artist</dt>
+            <dd><span class="art_value-artist"></span></dd>
+            <dt class="artwork-info-row">Date</dt>
+            <dd><span class="art_value-date"></span></dd>
+            <dt class="artwork-info-row">Medium</dt>
+            <dd><span class="art_value-medium"></span></dd>
+            <dt class="artwork-info-row">Collecting Institution</dt>
+            <dd><span class="art_value-institution"></span></dd>
+            <dt class="artwork-info-row">Additional Information</dt>
+            <dd><span class="art_value-more">See more details at 
+              <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
+            <dt class="artwork-info-row">Share</dt>
+            <dd class="social-links">
+              <a class="share-facebook" target="_blank" href="">
+                <i class="fab fa-facebook-f"></i></a>
+              <a class="share-twitter" target="_blank" href="">
+                <i class="fab fa-twitter"></i></a>
+              <a class="share-email" target="_blank" href="">
+                <i class="fas fa-envelope"></i></a>
+            </dd>
+          </dl>
+        </section>
+        <p id="js-error-message" class="error-message"></p>
+      </main>
+      <div class="spinner">
+        <img src="images/spinner_30.svg" class="loadcircle">
+      </div>
+      <footer>
+        <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API</a> but is not endorsed or certified by Artsy.</p>
+        <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
+      </footer role="contentinfo">
     </div>
-    <footer>
-      <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API</a> but is not endorsed or certified by Artsy.</p>
-      <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
-    </footer role="contentinfo">
       <script src="script.js"></script>
   </body>
 </html>

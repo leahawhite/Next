@@ -30,7 +30,7 @@
           <form id="js-like-form">
             <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
             <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
-            <input type="hidden" id="artworkID" name="artworkID" value=""></input>
+            <input type="hidden" id="artworkID" name="artworkID" value="">
           </form>
           <div class="greeting">
             <p>Click right to see a related image.
@@ -51,7 +51,7 @@
             <dd><span class="art_value-institution"></span></dd>
             <dt class="artwork-info-row">Additional Information</dt>
             <dd><span class="art_value-more">See more details at 
-              <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
+              <a target="_blank" class="artsy-link" href="">Artsy</a></span></dd>
             <dt class="artwork-info-row">Share</dt>
             <dd class="social-links">
               <a class="share-facebook" target="_blank" href="">
@@ -66,12 +66,12 @@
         <p id="js-error-message" class="error-message"></p>
       </main>
       <div class="spinner">
-        <img src="images/spinner_30.svg" class="loadcircle">
+        <img src="images/spinner_30.svg" class="loadcircle" alt="animated loading circle">
       </div>
-      <footer>
+      <footer role="contentinfo">
         <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API</a> but is not endorsed or certified by Artsy.</p>
         <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
-      </footer role="contentinfo">
+      </footer>
     </div>
       <script src="script.js"></script>
   </body>

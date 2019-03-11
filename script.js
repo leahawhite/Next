@@ -25,7 +25,6 @@ const $artist = $('.art_value-artist');
 const $spinner = $('.spinner');
 const $main = $('main');
 
-// sets spinner to run while fetching from API
 function setSpinner(isFetching) {
   if (isFetching) {
     $spinner.css({ display: 'block' });
@@ -36,9 +35,11 @@ function setSpinner(isFetching) {
   }
 }
 
-// on left-nav button click, get new random image
+// on left-nav click, get new random image
 function watchLeftNav() {
   $leftNav.click(event => {
+    // delete any lingering error message 
+    $errorMessage.empty();
     fetchData({ sample: 1 }, 'artworks', displayImage);
   });
 }
@@ -47,28 +48,24 @@ function watchLeftNav() {
 function watchRightNav() {
   $rightNav.click(event => {
     let artworkID = $('#artworkID').val();
-    console.log(artworkID);
+    $errorMessage.empty();
     fetchData({ similar_to_artwork_id: $('#artworkID').val() }, 'artworks', displaySimilarImage);
   });
 }
 
 // display retrieved image and title
 function displaySimilarImage(data) {
-  console.log(data);
-
   const similarArtworks = data._embedded.artworks;
   const sample = similarArtworks[Math.floor(Math.random() * similarArtworks.length)];
-  console.log('the sample is', sample);
-
+  
   // if no image available, get new random image
   if (!similarArtworks.length || !("image" in sample._links)) {
-    $errorMessage.empty();
     fetchData({ sample: 1 }, 'artworks', displayImage);
   } else {
     let image = sample._links.image.href.split('{', 1);
     let imageVersions = sample.image_versions;
     let largeImage;
-    // avoid cropped images from versions
+    // avoid cropped image versions
     if (imageVersions.includes('large') === true) {
       largeImage = image + 'large' + '.jpg';
     } else if (imageVersions.includes('larger') === true) {
@@ -81,7 +78,6 @@ function displaySimilarImage(data) {
             let size = sample.image_versions[0];
             largeImage = image + size + '.jpg';
             }
-
     $imageFrame.html(
       `<img class="image-frame" src="${largeImage}" 
       alt="${sample.slug}">`
@@ -89,7 +85,6 @@ function displaySimilarImage(data) {
 
     // display artwork info
     $artTitle.html(`${sample.title}`);
-
     if (!sample.date) {
       $artDate.html('N/A');
     } else {
@@ -107,20 +102,19 @@ function displaySimilarImage(data) {
     }
     $artsyLink.attr('href', `${sample._links.permalink.href}`);
 
-    // store artwork link and title for social media
+    // info for social media links
     const permalink = sample._links.permalink.href;
     const title = sample.title;
     shareArtwork(permalink, title);
     
-    // store artwork ID and get artist name  
+    // get artist name  
     const artworkID = sample.id;
     $('#artworkID').val(artworkID);
-    console.log(artworkID);
     fetchData({ artwork_id: artworkID }, 'artists', displayArtist);
   }
 }
 
-// pass artwork link and title to social media links
+// social media links
 function shareArtwork(permalink, title) {
   $('.share-facebook').attr('href', `https://www.facebook.com/sharer.php?u=${permalink}`);
   $('.share-twitter').attr('href', `http://twitter.com/intent/tweet?text=${permalink}`);
@@ -163,23 +157,22 @@ function fetchData(params, endpoint, cb) {
       setSpinner(false);
       clearTimeout(timeoutId);
       console.log(err);
-      $errorMessage.text(`Something went wrong: ${err.message}`);
+      $errorMessage.html(
+        `Sorry, we encountered a problem loading the data.<br>Click the left or right arrow for a new image.`);
     });
 }
 
 // display retrieved image and info
 function displayImage(data) {
-  console.log(data);
-
+  
   // if no image available, get new random image
   if (!("image" in data._links)) {
-    $errorMessage.empty();
     fetchData({sample: 1}, 'artworks', displayImage);
   } else {
     let image = data._links.image.href.split('{', 1);
     let large;
 
-    // avoid cropped images
+    // avoid cropped image versions
     if (data.image_versions[0] !== 'large' && data.image_versions[0] !== 'larger') {
       large = data.image_versions[1];
     } else {
@@ -213,15 +206,14 @@ function displayImage(data) {
     }
     $artsyLink.attr('href', `${data._links.permalink.href}`);
 
-    // store link and title for social media
+    // info for social media
     const permalink = data._links.permalink.href;
     const title = data.title;
     shareArtwork(permalink, title);
 
-    // store artwork ID and get artist name
+    // get artist name
     const artworkID = data.id;
     $('#artworkID').val(artworkID);
-    console.log(artworkID);
     fetchData({ artwork_id: artworkID }, 'artists', displayArtist);
   }
 }
@@ -235,7 +227,7 @@ function displayArtist(data) {
   }
 }
 
-// formats fetch URL with endpoint and parameters
+// format fetch URL with endpoint and parameters
 function normalizeUrl(endpoint, params) {
   const queryItems = Object.keys(params).map(
     key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`

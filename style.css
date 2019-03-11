@@ -32,15 +32,29 @@ footer {
 
 body {
   font-family: 'Playfair Display', serif;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
   color: #666666;
 }
 
-button:hover {
-  cursor: pointer;
+button {
+  -webkit-transition: -webkit-transform .2s;
+     -moz-transition: -moz-transform .2s;
+      -ms-transition: -ms-transform .2s;
+       -o-transition: -o-transform .2s;
+          transition: transform .2s;
+
+}
+
+button:hover, button:active {
+  color: #e83a17;
+  -webkit-transform: scale(1.5);
+     -moz-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+       -o-transform: scale(1.5);
+          transform: scale(1.5);
 }
 
 img {
@@ -69,14 +83,20 @@ header {
 footer {
   border-top: 1px solid  rgb(204,204,204);
   padding: 15px 30px;
-  width: 100%;
   text-align: center;
 }
 
-a {
+a:link, a:visited {
   cursor: pointer;
   text-decoration: none;
   color:  #e83a17; 
+}
+
+a:hover, a:active {
+  font-weight: bold;
+  -webkit-transition: font-weight, .25s, bold;
+       -o-transition: font-weight, .25s, bold;
+          transition: font-weight, .25s, bold;
 }
 
 p {
@@ -93,7 +113,7 @@ main {
   margin: 0 auto 30px auto;
 }
 
-#artwork-info {
+.artwork-info {
   display: flex;
   width: auto;
   max-width: 400px;
@@ -122,8 +142,7 @@ dd {
   margin: 0;
 }
 
-.greeting {
-  text-align: center;
+.instructions {
   line-height: 1.5em;
 }
 
@@ -163,20 +182,50 @@ dd {
 }
 
 .social-links {
-  padding: 10px 0 40px 0;
+  padding: 0px 0 40px 0;
   font-size: 20px;
 }
 
-.social-links a {
-  padding-right: 10px;
-  font-size: 20px;
+.social-links i {
+  width: 38px;
+  height: 38px;
+  text-align: center;
+  vertical-align: center;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%; 
+  border-color: white; 
+  padding: 2%; 
+  -webkit-transition: border .2s linear;
+     -moz-transition: border .2s linear;
+      -ms-transition: border .2s linear;
+       -o-transition: border .2s linear;
+          transition: border .2s linear;
+}
+
+[class*="icon-"] {
+  display: inline-block;
+  width: 100%;
+}
+
+.social-links i:hover, .social-links i:active {
+  border-color: #e83a17; 
+}
+
+.error-message {
+  text-align: center;
+  padding: 10px;
 }
 
 .spinner {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .loadcircle {
@@ -192,7 +241,7 @@ footer > p {
 
 @media only screen and (min-width: 600px) {
 
-  #artwork-info {
+  .artwork-info {
     font-size: 16px;
     margin: 0 20%;
     padding: 0;
@@ -201,7 +250,7 @@ footer > p {
 
 @media only screen and (min-width: 850px) {
 
-  #artwork-info {
+  .artwork-info {
     font-size: 18px;
     margin: 0 30%;
     padding: 0;
@@ -238,7 +287,7 @@ footer > p {
     float: right;
   }
 
-  #artwork-info {
+  .artwork-info {
     width: 35%;
     margin: 20px 40px 0 0;
     padding-top: 20px;
@@ -253,29 +302,12 @@ footer > p {
     padding: 0 0 10px 0;
   }
 
-  #social-media {
-    width: 35%;
-    float: left;
-    text-align: left;
-    margin: 0 0 40px 0;
-  }
-
-  #social-media p {
-    text-align: left;
-    font-size: 18px;
-  }
-
   .social-links {
     display: block;
     margin: 0;
-    padding: 10px 10px 0 0;
+    padding: 0;
   }
  
-  #social-media a {
-    padding: 10px;
-    font-size: 20px;
-  }
-
   footer {
     clear: both;
   }

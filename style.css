@@ -86,6 +86,10 @@ footer {
   text-align: center;
 }
 
+footer a, .artsy-link {
+  font-weight: bold;
+}
+
 a:link, a:visited {
   cursor: pointer;
   text-decoration: none;
@@ -93,10 +97,7 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  font-weight: bold;
-  -webkit-transition: font-weight, .25s, bold;
-       -o-transition: font-weight, .25s, bold;
-          transition: font-weight, .25s, bold;
+  text-decoration: underline;
 }
 
 p {

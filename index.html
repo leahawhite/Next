@@ -1,78 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Next is an application that lets viewers 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Next is an application that lets viewers 
     take a self-guided tour through both well-known and more obscure works of art 
     in the public domain. Personalize your gallery walk by choosing to see 
     related works or a random selection from the collection.">
-    <title>NEXT</title>
-    <link href="style.css" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
+  <title>NEXT</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" 
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <div class="main-container">
-      <header role="banner">
-        <h1 class="app-title">Next</h1>
-        <p class="app-description">A self-guided tour of art in the public domain</p>
-      </header>
-      <main role="main" class="content">
-        <section class="artwork-display"> 
-          <div id="image-container">
-            <div id="js-image-frame"></div>
-          </div>
-          <form id="js-like-form">
-            <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
-            <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
-            <input type="hidden" id="artworkID" name="artworkID" value="">
-          </form>
-          <div class="greeting">
-            <p>Click right to see a related image.
+</head>
+
+<body>
+  <div class="main-container">
+    <header role="banner">
+      <h1 class="app-title">Next</h1>
+      <p class="app-description">A self-guided tour of art in the public domain</p>
+    </header>
+    <main role="main" class="content">
+      <section class="artwork-display">
+        <div id="image-container">
+          <div id="js-image-frame"></div>
+        </div>
+        <form id="js-like-form" role="form">
+          <button type="button" class="left-nav" aria-label="left-arrow" aria-controls="js-image-frame"><i class="fas fa-arrow-left"></i></button>
+          <button type="button" class="right-nav" aria-label="right-arrow" aria-controls="js-image-frame"><i class="fas fa-arrow-right"></i></button>
+          <input type="hidden" id="artworkID" name="artworkID" value="">
+        </form>
+        <div class="instructions">
+          <p>Click right to see a related image.
             <br>Click left to see something different.</p>
-          </div>
-        </section>
-        <section id="artwork-info" class="artwork-info">
-          <dl class="art-info-list">
-            <dt class="artwork-info-row first">Title</dt>
-            <dd><span class="art_value-title"></span></dd>
-            <dt class="artwork-info-row">Artist</dt>
-            <dd><span class="art_value-artist"></span></dd>
-            <dt class="artwork-info-row">Date</dt>
-            <dd><span class="art_value-date"></span></dd>
-            <dt class="artwork-info-row">Medium</dt>
-            <dd><span class="art_value-medium"></span></dd>
-            <dt class="artwork-info-row">Collecting Institution</dt>
-            <dd><span class="art_value-institution"></span></dd>
-            <dt class="artwork-info-row">Additional Information</dt>
-            <dd><span class="art_value-more">See more details at 
+        </div>
+      </section>
+      <section id="artwork-info" class="artwork-info">
+        <dl class="art-info-list">
+          <dt class="artwork-info-row first">Title</dt>
+          <dd><span class="art_value-title"></span></dd>
+          <dt class="artwork-info-row">Artist</dt>
+          <dd><span class="art_value-artist"></span></dd>
+          <dt class="artwork-info-row">Date</dt>
+          <dd><span class="art_value-date"></span></dd>
+          <dt class="artwork-info-row">Medium</dt>
+          <dd><span class="art_value-medium"></span></dd>
+          <dt class="artwork-info-row">Collecting Institution</dt>
+          <dd><span class="art_value-institution"></span></dd>
+          <dt class="artwork-info-row">Additional Information</dt>
+          <dd><span class="art_value-more">See more details at
               <a target="_blank" class="artsy-link" href="">Artsy</a></span></dd>
-            <dt class="artwork-info-row">Share</dt>
-            <dd class="social-links">
-              <a class="share-facebook" target="_blank" href="">
-                <i class="fab fa-facebook-f"></i></a>
-              <a class="share-twitter" target="_blank" href="">
-                <i class="fab fa-twitter"></i></a>
-              <a class="share-email" target="_blank" href="">
-                <i class="fas fa-envelope"></i></a>
-            </dd>
-          </dl>
-        </section>
-        <p id="js-error-message" class="error-message"></p>
-      </main>
-      <div class="spinner">
-        <img src="images/spinner_30.svg" class="loadcircle" alt="animated loading circle">
-      </div>
-      <footer role="contentinfo">
-        <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API</a> but is not endorsed or certified by Artsy.</p>
-        <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
-      </footer>
+          <dt class="artwork-info-row">Share</dt>
+          <dd class="social-links">
+            <a class="share-facebook" target="_blank" href="">
+              <i class="fab fa-facebook-f"></i></a>
+            <a class="share-twitter" target="_blank" href="">
+              <i class="fab fa-twitter"></i></a>
+            <a class="share-email" target="_blank" href="">
+              <i class="fas fa-envelope"></i></a>
+          </dd>
+        </dl>
+      </section>
+      <p id="js-error-message" class="error-message"></p>
+    </main>
+    <div class="spinner">
+      <img src="images/spinner_30.svg" class="loadcircle" alt="animated loading circle">
     </div>
-      <script src="script.js"></script>
-  </body>
+    <footer role="contentinfo">
+      <p>This application features images from the <a target="_blank" href="https://developers.artsy.net/">Artsy API</a>
+        but is not endorsed or certified by Artsy.</p>
+      <p>Copyright <a target="_blank" href="mailto:leahawhite@gmail.com">Leah White</a> 2019.</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>

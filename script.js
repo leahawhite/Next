@@ -57,7 +57,7 @@ function watchRightNav() {
 function displaySimilarImage(data) {
   const similarArtworks = data._embedded.artworks;
   const sample = similarArtworks[Math.floor(Math.random() * similarArtworks.length)];
-  
+
   // if no image available, get new random image
   if (!similarArtworks.length || !("image" in sample._links)) {
     fetchData({ sample: 1 }, 'artworks', displayImage);
@@ -69,15 +69,15 @@ function displaySimilarImage(data) {
     if (imageVersions.includes('large') === true) {
       largeImage = image + 'large' + '.jpg';
     } else if (imageVersions.includes('larger') === true) {
-        largeImage = image + 'larger' + '.jpg';
-      } else if (imageVersions.includes('medium') === true) {
-        largeImage = image + 'medium' + '.jpg';
-        } else if (imageVersions.includes('normalized') === true) {
-          largeImage = image + 'normalized' + '.jpg';
-          } else {
-            let size = sample.image_versions[0];
-            largeImage = image + size + '.jpg';
-            }
+      largeImage = image + 'larger' + '.jpg';
+    } else if (imageVersions.includes('medium') === true) {
+      largeImage = image + 'medium' + '.jpg';
+    } else if (imageVersions.includes('normalized') === true) {
+      largeImage = image + 'normalized' + '.jpg';
+    } else {
+      let size = sample.image_versions[0];
+      largeImage = image + size + '.jpg';
+    }
     $imageFrame.html(
       `<img class="image-frame" src="${largeImage}" 
       alt="${sample.slug}">`
@@ -106,7 +106,7 @@ function displaySimilarImage(data) {
     const permalink = sample._links.permalink.href;
     const title = sample.title;
     shareArtwork(permalink, title);
-    
+
     // get artist name  
     const artworkID = sample.id;
     $('#artworkID').val(artworkID);
@@ -118,10 +118,10 @@ function displaySimilarImage(data) {
 function shareArtwork(permalink, title) {
   $('.share-facebook').attr('href', `https://www.facebook.com/sharer.php?u=${permalink}`);
   $('.share-twitter').attr('href', `http://twitter.com/intent/tweet?text=${permalink}`);
-  const subject = `${title}`; 
+  const subject = `${title}`;
   const subjectEncoded = encodeURIComponent(subject);
   $('.share-email').attr('href', `mailto:?subject=${subjectEncoded}&body=${permalink}`);
-} 
+}
 
 let timeoutId;
 
@@ -164,10 +164,10 @@ function fetchData(params, endpoint, cb) {
 
 // display retrieved image and info
 function displayImage(data) {
-  
+
   // if no image available, get new random image
   if (!("image" in data._links)) {
-    fetchData({sample: 1}, 'artworks', displayImage);
+    fetchData({ sample: 1 }, 'artworks', displayImage);
   } else {
     let image = data._links.image.href.split('{', 1);
     let large;
@@ -235,7 +235,7 @@ function normalizeUrl(endpoint, params) {
   return `${baseURL}${endpoint}?${queryItems.join('&')}`;
 }
 
-$(function() {
+$(function () {
   fetchData({ sample: 1 }, 'artworks', displayImage);
   watchRightNav();
   watchLeftNav();

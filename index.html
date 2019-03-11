@@ -25,34 +25,32 @@
       <main role="main" class="content">
         <section class="artwork-display"> 
           <div id="image-container">
-            <div id="js-image-frame"></div>
+            <div id="js-image-frame" aria-live="polite"></div>
           </div>
-          <form id="js-like-form">
-            <button type="button" class="left-nav"><i class="fas fa-arrow-left"></i></button>
-            <button type="button" class="right-nav"><i class="fas fa-arrow-right"></i></button>
+          <form id="js-form" role="form">
+            <button type="button" class="left-nav" aria-label="new-random-image" aria-describedby="instructions"><i class="fas fa-arrow-left"></i></button>
+            <button type="button" class="right-nav" aria-label="new-similar-image" aria-describedby="instructions"><i class="fas fa-arrow-right"></i></button>
+            <p id="instructions">Click right to see a related image.
+              <br>Click left to see something different.</p>
             <input type="hidden" id="artworkID" name="artworkID" value=""></input>
           </form>
-          <div class="greeting">
-            <p>Click right to see a related image.
-            <br>Click left to see something different.</p>
-          </div>
         </section>
         <section id="artwork-info" class="artwork-info">
-          <dl class="art-info-list">
-            <dt class="artwork-info-row first">Title</dt>
+          <dl class="art-info-list" aria-live="polite">
+            <dt class="artwork-info-row first" aria-atomic="true">Title</dt>
             <dd><span class="art_value-title"></span></dd>
-            <dt class="artwork-info-row">Artist</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Artist</dt>
             <dd><span class="art_value-artist"></span></dd>
-            <dt class="artwork-info-row">Date</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Date</dt>
             <dd><span class="art_value-date"></span></dd>
-            <dt class="artwork-info-row">Medium</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Medium</dt>
             <dd><span class="art_value-medium"></span></dd>
-            <dt class="artwork-info-row">Collecting Institution</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Collecting Institution</dt>
             <dd><span class="art_value-institution"></span></dd>
-            <dt class="artwork-info-row">Additional Information</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Additional Information</dt>
             <dd><span class="art_value-more">See more details at 
               <a target="_blank" class="artsy-link" href=>Artsy</a></span></dd>
-            <dt class="artwork-info-row">Share</dt>
+            <dt class="artwork-info-row" aria-atomic="true">Share</dt>
             <dd class="social-links">
               <a class="share-facebook" target="_blank" href="">
                 <i class="fab fa-facebook-f"></i></a>

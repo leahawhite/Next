@@ -1,8 +1,11 @@
 'use strict';
+require('dotenv').config();
 
-const xappToken =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsImV4cCI6MTU1OTI0OTY0NiwiaWF0IjoxNTU4NjQ0ODQ2LCJhdWQiOiI1Y2RjZTQ0YzU2ZjMyZDM3ZmNiYjQwYTciLCJpc3MiOiJHcmF2aXR5IiwianRpIjoiNWNlNzA4NmU1YWJjNmMwMDBkNzVlZGYxIn0.r2GJwZqv705HTD5Tn7svffuyWqiM7-lhIiGu-zpzUvY';
-  const baseURL = 'https://api.artsy.net/api/';
+// const xappToken =
+//   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsImV4cCI6MTU1OTI0OTY0NiwiaWF0IjoxNTU4NjQ0ODQ2LCJhdWQiOiI1Y2RjZTQ0YzU2ZjMyZDM3ZmNiYjQwYTciLCJpc3MiOiJHcmF2aXR5IiwianRpIjoiNWNlNzA4NmU1YWJjNmMwMDBkNzVlZGYxIn0.r2GJwZqv705HTD5Tn7svffuyWqiM7-lhIiGu-zpzUvY';
+const xappToken = process.env.API_KEY;
+const baseURL = 'https://api.artsy.net/api/';
+console.log('env',process.env )
 
 const auth = {
   headers: new Headers({

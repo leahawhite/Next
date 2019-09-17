@@ -1,7 +1,7 @@
 'use strict';
 
 const xappToken =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsImV4cCI6MTU2NzgxNDU1MywiaWF0IjoxNTY3MjA5NzUzLCJhdWQiOiI1Y2RjZTQ0YzU2ZjMyZDM3ZmNiYjQwYTciLCJpc3MiOiJHcmF2aXR5IiwianRpIjoiNWQ2OWI5MTllMzU0ODkwMDBkZTZlNTRmIn0._d03TOhFrTvQrSWpls7aayGTmce75nlsIXvDlFgrBvU';
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IiIsImV4cCI6MTU2OTM1MTEyOSwiaWF0IjoxNTY4NzQ2MzI5LCJhdWQiOiI1Y2RjZTQ0YzU2ZjMyZDM3ZmNiYjQwYTciLCJpc3MiOiJHcmF2aXR5IiwianRpIjoiNWQ4MTJiNTlkYTg5NjYwMDExN2NhMmUwIn0.71Y1nUXQcq14ig0hbcUJ8_tbfWI84NpB2ALHne-ReJg';
 const baseURL = 'https://api.artsy.net/api/';
 
 const auth = {
